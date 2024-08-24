@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
 // import MONGODB_URI from './db/config.js';
 import {postsModel, User} from './models/models.js';
 import jwt from 'jsonwebtoken';
@@ -38,10 +39,13 @@ app.post('/socialBee/registerUser', async(req,res) => {
     try{
         const {username, email, password} = req.body;
 
+        const saltRound = 10;
+        const securePassword = await bcrypt.hash(password, saltRound);
+        console.log('securePassword: ', securePassword);
         const newUser = new User({
             username,
             email,
-            password
+            password:securePassword
         })
 
         await newUser.save();
@@ -92,6 +96,17 @@ app.post('/socialBee/registerUser', async(req,res) => {
 })
 
 
+/**
+ * Register a new user
+ * @route POST /socialBee/registerUser
+ * @param {string} req.body.username - The user's username
+ * @param {string} req.body.email - The user's email
+ * @param {string} req.body.password - The user's password
+ * @returns {Object} 201 - New user object
+ * @returns {Object} 400 - Validation errors
+ * @returns {Object} 500 - Server error
+ */
+
 app.get('/socialBee/login',async(req,res) => {
     try{
         const {username, email, password} = req.body;
@@ -106,7 +121,8 @@ app.get('/socialBee/login',async(req,res) => {
                         })
             }
 
-        if(user.password !== password){
+        const isPasswordCorrect = await bcrypt.compare(password, user.password)
+        if(!isPasswordCorrect){
             return res.status(401).json({
                 success:false,
                 message:'Password didn \'t match' 
