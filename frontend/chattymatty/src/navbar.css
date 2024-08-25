@@ -1,0 +1,93 @@
+.navbarExpandCustom {
+    /* This class name should match what you use in your JSX */
+  }
+  .container{
+    min-width: 100vw;
+    background-color: aquamarine;
+  }
+  .container .navbar.bg-light{
+    background-color: aquamarine !important;
+  }
+  .navbarStyle{
+    margin-top:80px;
+    background-color:deeppink !important ;
+  }
+
+  .navbar-brand{
+    color:rgb(113, 139, 0);
+  }
+  .navbar-brand:hover{
+    color:rgb(189, 117, 2)
+  }
+  .listItems{
+    
+    display:flex;
+    gap:20px;
+    list-style: none;
+    position:absolute;
+    right:10px;
+    top:15px;
+    
+  }
+  .listItems li{
+    margin:0;
+    padding:0
+  }
+
+
+  @media (min-width:600px){
+    .navbar-toggler {
+        display: none; 
+      }
+      #navbarSupportedContent{
+        display: block;
+      }
+  }
+
+  .container .navbar .container-fluid .d-flex{
+    position:absolute;
+    left:25%;
+
+  }
+  .btn-success{
+    display:none;
+  }
+  @media (max-width:700px){
+    .container .navbar .container-fluid .d-flex .form-control{
+      display: none;
+    }
+    .container .navbar .container-fluid .d-flex .btn-outline-success{
+      display: none;
+    }
+
+    .container .navbar .container-fluid .d-flex.show-search{
+      display: block;
+    }
+
+    .btn-success{
+      position:absolute;
+      left:17rem;
+      
+      display: block;
+    }
+  }
+  @media (max-width: 599px) {
+
+    .navbar-toggler {
+        display: block; /* Show the toggle button */
+      }
+    
+      .collapse.navbar-collapse {
+        display: none; /* Hide navbar content by default */
+      }
+    
+      .navbar-collapse.show {
+        display: block; /* Show navbar content when toggled */
+      }
+      
+    .listItems{
+        display:flex;
+        flex-direction:column;
+        position:relative
+    }
+  }
