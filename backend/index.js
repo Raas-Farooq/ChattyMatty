@@ -13,7 +13,7 @@ const port = process.env.PORT || 3800;
 const app = express();
 
 app.use(express.json());
-
+app.use(cors());
 // dotenv;
 dotenv.config();
 
@@ -22,7 +22,7 @@ dotenv.config();
 const createdIndex = async () => {
     try{
         await postsModel.collection.createIndex({createdAt: -1, user_id:1});
-        console.log("index has been Created")
+        console.log("index Created")
     }   
     catch(err){
         console.log("err while creating INdex ", err)
